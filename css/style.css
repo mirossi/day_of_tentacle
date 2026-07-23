@@ -206,3 +206,85 @@ body {
 #dialog-panel .dialog-option:hover { color: #fff; background: #3d2168; border-radius: 4px; }
 
 .hidden { display: none !important; }
+
+/* Landscape phones / short screens: canvas left, controls right */
+@media (orientation: landscape) and (max-height: 560px) {
+  body {
+    height: 100dvh;
+    padding: 6px;
+    overflow: hidden;
+    align-items: center;
+  }
+
+  #game-wrap {
+    max-width: none;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #screen-wrap {
+    width: auto;
+    flex: 0 1 auto;
+  }
+
+  #screen {
+    width: auto;
+    height: auto;
+    max-height: calc(100dvh - 22px);
+    max-width: calc(100vw - 250px);
+  }
+
+  #control-column {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    overflow-y: auto;
+  }
+
+  #sentence-line, #panel, #dialog-panel { margin-top: 0; }
+
+  #sentence-line {
+    min-height: 0;
+    padding: 5px 10px;
+    font-size: 13px;
+  }
+
+  #panel {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  #verbs { flex: none; }
+  #verbs button { padding: 6px 4px; font-size: 13px; }
+
+  #inventory {
+    min-height: 50px;
+    grid-auto-rows: 42px;
+  }
+  #inventory canvas { width: 32px; height: 32px; }
+
+  #options {
+    flex: none;
+    flex-direction: row;
+  }
+  #options button { flex: 1; }
+
+  #dialog-panel { overflow-y: auto; flex: 0 1 auto; }
+  #dialog-panel .dialog-option { font-size: 13px; padding: 5px 8px; }
+
+  #title-overlay h1, #ending-overlay h1 { font-size: clamp(18px, 9vmin, 44px); }
+  #title-overlay .subtitle { margin-top: 6px; font-size: 12px; }
+  #title-overlay .hint { margin-top: 8px; font-size: 10px; }
+  #ending-overlay p { margin: 8px 16px; font-size: 13px; }
+  #title-overlay button, #ending-overlay button {
+    margin-top: 10px;
+    font-size: 15px;
+    padding: 8px 18px;
+  }
+}

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Night of the Snapdragon</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a0b2e'/%3E%3Ccircle cx='16' cy='12' r='8' fill='%234cc957'/%3E%3Crect x='13' y='18' width='6' height='10' fill='%233fae4a'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
@@ -23,16 +23,18 @@
       <button id="restart-btn">PLAY AGAIN</button>
     </div>
   </div>
-  <div id="sentence-line">Walk to</div>
-  <div id="panel">
-    <div id="verbs"></div>
-    <div id="inventory"></div>
-    <div id="options">
-      <button id="mute-music" title="Toggle music">MUSIC: ON</button>
-      <button id="mute-voice" title="Toggle voice speech">VOICE: ON</button>
+  <div id="control-column">
+    <div id="sentence-line">Walk to</div>
+    <div id="panel">
+      <div id="verbs"></div>
+      <div id="inventory"></div>
+      <div id="options">
+        <button id="mute-music" title="Toggle music">MUSIC: ON</button>
+        <button id="mute-voice" title="Toggle voice speech">VOICE: ON</button>
+      </div>
     </div>
+    <div id="dialog-panel" class="hidden"></div>
   </div>
-  <div id="dialog-panel" class="hidden"></div>
 </div>
 <script src="js/audio.js"></script>
 <script src="js/speech.js"></script>
