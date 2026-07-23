@@ -1,0 +1,208 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #1a0b2e;
+  color: #eee;
+  font-family: "Trebuchet MS", "Comic Sans MS", Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+}
+
+#game-wrap {
+  width: 100%;
+  max-width: 960px;
+  user-select: none;
+}
+
+#screen-wrap {
+  position: relative;
+  width: 100%;
+  border: 4px solid #000;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #000;
+}
+
+#screen {
+  display: block;
+  width: 100%;
+  height: auto;
+  cursor: crosshair;
+}
+
+#title-overlay, #ending-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #4a1a7a 0%, #1a0b2e 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 10;
+}
+
+#title-overlay h1, #ending-overlay h1 {
+  font-size: clamp(32px, 7vw, 64px);
+  color: #7CFC00;
+  text-shadow: 4px 4px 0 #000, -2px -2px 0 #ff00ff;
+  transform: rotate(-4deg);
+  line-height: 1.05;
+  letter-spacing: 2px;
+}
+
+#title-overlay .subtitle {
+  margin-top: 10px;
+  color: #ffb6ff;
+  font-style: italic;
+  font-size: clamp(13px, 2vw, 18px);
+}
+
+#title-overlay .hint {
+  margin-top: 16px;
+  color: #9b8bb0;
+  font-size: 12px;
+}
+
+#ending-overlay p {
+  margin: 14px 20px;
+  color: #ffe28a;
+  font-size: clamp(13px, 2vw, 18px);
+  max-width: 480px;
+}
+
+#title-overlay button, #ending-overlay button {
+  margin-top: 22px;
+  font-family: inherit;
+  font-size: clamp(15px, 2.4vw, 22px);
+  font-weight: bold;
+  padding: 12px 28px;
+  background: #7CFC00;
+  color: #1a0b2e;
+  border: 3px solid #000;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transform: rotate(1.5deg);
+}
+
+#title-overlay button:hover, #ending-overlay button:hover {
+  background: #b6ff5e;
+  transform: rotate(-1.5deg) scale(1.05);
+}
+
+#sentence-line {
+  margin-top: 6px;
+  padding: 6px 12px;
+  background: #2d1650;
+  border: 2px solid #000;
+  border-radius: 6px;
+  color: #7CFC00;
+  font-size: clamp(13px, 2vw, 17px);
+  font-weight: bold;
+  min-height: 34px;
+}
+
+#panel {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+#verbs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  flex: 0 0 46%;
+}
+
+#verbs button {
+  font-family: inherit;
+  font-size: clamp(12px, 1.8vw, 16px);
+  font-weight: bold;
+  padding: 8px 4px;
+  background: #2d1650;
+  color: #c9a0ff;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#verbs button:hover { color: #fff; background: #3d2168; }
+#verbs button.selected { background: #7CFC00; color: #1a0b2e; }
+
+#inventory {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 52px;
+  gap: 4px;
+  background: #241040;
+  border: 2px solid #000;
+  border-radius: 5px;
+  padding: 4px;
+  min-height: 112px;
+}
+
+#inventory .inv-item {
+  background: #2d1650;
+  border: 2px solid #000;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#inventory .inv-item:hover { background: #3d2168; }
+#inventory .inv-item.selected { background: #7CFC00; }
+#inventory canvas { width: 40px; height: 40px; }
+
+#options {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 0 0 110px;
+}
+
+#options button {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 6px 4px;
+  background: #2d1650;
+  color: #9b8bb0;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#options button:hover { color: #fff; }
+
+#dialog-panel {
+  margin-top: 6px;
+  background: #241040;
+  border: 2px solid #000;
+  border-radius: 6px;
+  padding: 8px;
+}
+
+#dialog-panel .dialog-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: clamp(13px, 2vw, 16px);
+  font-weight: bold;
+  padding: 6px 10px;
+  margin: 3px 0;
+  background: transparent;
+  color: #b8f28a;
+  border: none;
+  cursor: pointer;
+}
+
+#dialog-panel .dialog-option:hover { color: #fff; background: #3d2168; border-radius: 4px; }
+
+.hidden { display: none !important; }
