@@ -28,6 +28,7 @@ body {
   display: block;
   width: 100%;
   height: auto;
+  aspect-ratio: 640 / 400;
   cursor: crosshair;
 }
 
@@ -231,10 +232,9 @@ body {
   }
 
   #screen {
-    width: auto;
+    width: min(calc(100vw - 240px), calc((100dvh - 16px) * 1.6));
     height: auto;
-    max-height: calc(100dvh - 22px);
-    max-width: calc(100vw - 250px);
+    aspect-ratio: 640 / 400;
   }
 
   #control-column {

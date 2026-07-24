@@ -16,9 +16,8 @@ let talk = null;
 let startTime = 0;
 
 const VERBS = [
-  ['give', 'Give'], ['open', 'Open'], ['close', 'Close'],
-  ['pickup', 'Pick up'], ['look', 'Look at'], ['talkto', 'Talk to'],
-  ['use', 'Use'], ['push', 'Push'], ['pull', 'Pull']
+  ['look', 'Look at'], ['pickup', 'Pick up'], ['talkto', 'Talk to'],
+  ['use', 'Use'], ['open', 'Open'], ['push', 'Push']
 ];
 const VERB_LABEL = Object.fromEntries(VERBS);
 VERB_LABEL.walk = 'Walk to';
@@ -187,7 +186,11 @@ function buildActors() {
     };
   };
   const ned = document.getElementById('ned');
-  if (ned) actorEls.ned = { wrap: ned, mo: document.getElementById('nedMouthO'), mc: document.getElementById('nedMouthC') };
+  if (ned) actorEls.ned = {
+    wrap: ned, mo: document.getElementById('nedMouthO'), mc: document.getElementById('nedMouthC'),
+    legB: document.getElementById('nedLegB'), legF: document.getElementById('nedLegF'),
+    armB: document.getElementById('nedArmB'), armF: document.getElementById('nedArmF')
+  };
   const prof = document.getElementById('professor');
   if (prof) actorEls.prof = { wrap: prof, mo: document.getElementById('profMouthO'), mc: document.getElementById('profMouthC') };
   const plant = document.getElementById('snappy');
@@ -199,8 +202,16 @@ function positionActors(t) {
   const ned = actorEls.ned;
   if (ned && ned.wrap) {
     const s = playerScale();
-    const bob = player.walking ? -Math.abs(Math.sin(t * 10)) * 2.5 : 0;
+    const bob = player.walking ? -Math.abs(Math.sin(t * 9)) * 2.5 : 0;
     ned.wrap.setAttribute('transform', `translate(${player.x.toFixed(1)},${(player.y + bob).toFixed(1)}) scale(${(player.dir * s).toFixed(3)},${s.toFixed(3)})`);
+    // walk cycle: swing legs and arms in opposition
+    if (player.walking) {
+      const sw = Math.sin(t * 9) * 15, aw = Math.sin(t * 9) * 10;
+      swing(ned.legB, sw, -6, -80); swing(ned.legF, -sw, 6, -80);
+      swing(ned.armB, -aw, -13, -112); swing(ned.armF, aw, 13, -112);
+    } else {
+      for (const k of ['legB', 'legF', 'armB', 'armF']) if (ned[k]) ned[k].removeAttribute('transform');
+    }
   }
   // Professor (faces left as drawn)
   const prof = actorEls.prof;
@@ -227,6 +238,8 @@ function positionActors(t) {
     if (e.mc) e.mc.style.display = speaking ? '' : 'none';
   }
 }
+
+function swing(el, ang, cx, cy) { if (el) el.setAttribute('transform', `rotate(${ang.toFixed(1)} ${cx} ${cy})`); }
 
 function escapeXml(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
