@@ -10,7 +10,12 @@
 <body>
 <div id="game-wrap">
   <div id="screen-wrap">
-    <canvas id="screen" width="640" height="400"></canvas>
+    <svg id="screen" viewBox="0 0 640 400" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+      <defs id="shared-defs"></defs>
+      <g id="room-layer"></g>
+      <g id="actor-layer"></g>
+      <g id="fx-layer"></g>
+    </svg>
     <div id="title-overlay">
       <h1>NIGHT<br>of the<br>SNAPDRAGON</h1>
       <p class="subtitle">a tentacle-style adventure</p>
@@ -38,7 +43,7 @@
 </div>
 <script src="js/audio.js"></script>
 <script src="js/speech.js"></script>
-<script src="js/art.js"></script>
+<script src="js/svgart.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/gamedata.js"></script>
 </body>
