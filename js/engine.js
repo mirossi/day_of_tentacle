@@ -255,18 +255,36 @@ function wrapText(text, maxChars) {
   return lines;
 }
 
+let talkKey = null;
 function renderTalk() {
-  if (!talk) { if (fxLayer.childNodes.length) fxLayer.innerHTML = ''; return; }
-  const [tx, ty] = actorTalkPos(talk.actorId);
-  const lines = wrapText(talk.text, 34);
-  const x = Math.max(120, Math.min(520, tx));
-  let y = Math.max(20 + lines.length * 18, ty - (lines.length - 1) * 18);
-  y = Math.min(y, 384);
-  let out = '';
-  for (const ln of lines) {
-    out += `<text x="${x.toFixed(0)}" y="${y.toFixed(0)}" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="15" font-weight="bold" paint-order="stroke" stroke="#12081f" stroke-width="4" stroke-linejoin="round" fill="${talk.color}">${escapeXml(ln)}</text>`;
-    y += 18;
+  const key = talk ? (talk.actorId + '|' + talk.text) : '';
+  if (key === talkKey) return;
+  talkKey = key;
+  if (!talk) { fxLayer.innerHTML = ''; return; }
+  const lines = wrapText(talk.text, 30);
+  const fs = 14, lh = 17, padX = 13, padY = 9, r = 12;
+  let maxch = 0; for (const l of lines) maxch = Math.max(maxch, l.length);
+  const bw = Math.max(90, Math.min(580, maxch * 7.7 + padX * 2));
+  const bh = lines.length * lh + padY * 2;
+  const [sx] = actorTalkPos(talk.actorId);
+  const hasTail = talk.actorId !== 'narrator';
+  const cx = Math.max(bw / 2 + 10, Math.min(640 - bw / 2 - 10, (sx || 320)));
+  const bx = cx - bw / 2, by = 8;
+  // speaker accent colour (darkened for a cream bubble)
+  const accent = { ned: '#2b6fd4', prof: '#2a8f9e', plant: '#2c9a3a', plantSmall: '#2c9a3a', narrator: '#a9852a' }[talk.actorId] || '#12081f';
+  let out = '<g>';
+  out += `<path d="M${bx + r},${by} h${bw - 2 * r} a${r},${r} 0 0 1 ${r},${r} v${bh - 2 * r} a${r},${r} 0 0 1 ${-r},${r} h${-(bw - 2 * r)} a${r},${r} 0 0 1 ${-r},${-r} v${-(bh - 2 * r)} a${r},${r} 0 0 1 ${r},${-r} Z" fill="#fffdf4" stroke="${accent}" stroke-width="3"/>`;
+  if (hasTail) {
+    const tipx = Math.max(bx + 20, Math.min(bx + bw - 20, sx));
+    out += `<path d="M${(cx - 9).toFixed(0)},${by + bh - 2} L${(cx + 9).toFixed(0)},${by + bh - 2} L${tipx.toFixed(0)},${by + bh + 15} Z" fill="#fffdf4" stroke="${accent}" stroke-width="3" stroke-linejoin="round"/>`;
+    out += `<path d="M${(cx - 8).toFixed(0)},${by + bh - 2} L${(cx + 8).toFixed(0)},${by + bh - 2}" stroke="#fffdf4" stroke-width="4"/>`;
   }
+  let ty = by + padY + 12;
+  for (const ln of lines) {
+    out += `<text x="${cx.toFixed(0)}" y="${ty}" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="${fs}" font-weight="bold" fill="#2b2038">${escapeXml(ln)}</text>`;
+    ty += lh;
+  }
+  out += '</g>';
   fxLayer.innerHTML = out;
 }
 

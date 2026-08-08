@@ -208,11 +208,11 @@ body {
 
 .hidden { display: none !important; }
 
-/* Landscape phones / short screens: canvas left, controls right */
+/* Landscape phones / short screens: big scene left, compact controls right */
 @media (orientation: landscape) and (max-height: 560px) {
   body {
     height: 100dvh;
-    padding: 6px;
+    padding: 3px;
     overflow: hidden;
     align-items: center;
   }
@@ -223,27 +223,28 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
   }
 
   #screen-wrap {
     width: auto;
-    flex: 0 1 auto;
+    flex: 0 0 auto;
+    border-width: 2px;
   }
 
   #screen {
-    width: min(calc(100vw - 240px), calc((100dvh - 16px) * 1.6));
+    width: min(calc(100vw - 162px), calc((100dvh - 8px) * 1.6));
     height: auto;
     aspect-ratio: 640 / 400;
   }
 
   #control-column {
-    flex: 1 1 auto;
-    min-width: 0;
+    flex: 0 0 150px;
+    width: 150px;
     max-height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
     overflow-y: auto;
   }
 
@@ -251,32 +252,41 @@ body {
 
   #sentence-line {
     min-height: 0;
-    padding: 5px 10px;
-    font-size: 13px;
+    padding: 3px 8px;
+    font-size: 11px;
+    border-radius: 5px;
   }
 
   #panel {
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
   }
 
-  #verbs { flex: none; }
-  #verbs button { padding: 6px 4px; font-size: 13px; }
+  #verbs {
+    flex: none;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3px;
+  }
+  #verbs button { padding: 5px 2px; font-size: 11px; border-radius: 4px; }
 
   #inventory {
-    min-height: 50px;
-    grid-auto-rows: 42px;
+    flex: none;
+    grid-template-columns: repeat(3, 1fr);
+    min-height: 40px;
+    grid-auto-rows: 34px;
+    gap: 3px;
   }
-  #inventory canvas { width: 32px; height: 32px; }
+  #inventory svg { width: 28px; height: 28px; }
 
   #options {
     flex: none;
     flex-direction: row;
+    gap: 3px;
   }
-  #options button { flex: 1; }
+  #options button { flex: 1; font-size: 9px; padding: 4px 2px; }
 
   #dialog-panel { overflow-y: auto; flex: 0 1 auto; }
-  #dialog-panel .dialog-option { font-size: 13px; padding: 5px 8px; }
+  #dialog-panel .dialog-option { font-size: 12px; padding: 4px 6px; }
 
   #title-overlay h1, #ending-overlay h1 { font-size: clamp(18px, 9vmin, 44px); }
   #title-overlay .subtitle { margin-top: 6px; font-size: 12px; }
